@@ -18,6 +18,8 @@ src폴더의 bargraph.html을 열고 화면 가운데 버튼을 클릭하고 src
 
 기본적으로 인코딩 타입은 EUC-KR(CP949)를 지원하고 있으나, Config에서 설정을 변경할 수 있습니다.
 
+현재 src/example.csv 파일은 한국 통계청에서 공개하고 있는 시군구별 이동자수 통계 데이터를 활용하여 만들었습니다.
+
 CSV 구체적인 형식：
 
 | name  | type  | value | date  |
