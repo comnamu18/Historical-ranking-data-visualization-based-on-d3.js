@@ -15,7 +15,7 @@ function getCsv() {
   var r = new FileReader();
   r.readAsText(this.files[0], config.encoding);
   r.onload = function () {
-    //读取完成后，数据保存在对象的result属性中
+    // After finish reading, data will be saved at result.
     var data = d3.csvParse(this.result);
     try {
       draw(data);
@@ -55,10 +55,10 @@ function draw(data) {
     });
   var baseTime = 3000;
 
-  // 如果用户提供的color_palette 长度不为0 则使用它，否则使用d3.schemeCatetory10
+  // If user's color_palette config value is not 0, then use d3.schemeCatetory10
   var user_pallete = config.color_palette;
   var product_palette = user_pallete.length !== 0 ? user_pallete : d3.schemeCategory10;
-  // 选择颜色
+  // Choose color
   function getColor(d) {
     var r = 0.0;
     if (changeable_color) {
@@ -97,9 +97,9 @@ function draw(data) {
   var text_y = config.text_y;
   var itemLabel = config.itemLabel;
   var typeLabel = config.typeLabel;
-  // 长度小于display_barInfo的bar将不显示barInfo
+  // If length of bar is shorther than display_barinfo, then barinfo will not showing.
   var display_barInfo = config.display_barInfo;
-  // 显示类型
+  // Show types
   if (config.use_type_info) {
     var use_type_info = config.use_type_info;
   } else if (divide_by != "name") {
@@ -107,9 +107,9 @@ function draw(data) {
   } else {
     var use_type_info = false;
   }
-  // 使用计数器
+  // Use counter
   var use_counter = config.use_counter;
-  // 每个数据的间隔日期
+  // Steps per each date
   var step = config.step;
   var long = config.long;
   var format = config.format;
@@ -202,11 +202,12 @@ function draw(data) {
   var dateLabel_switch = config.dateLabel_switch;
   var dateLabel_x = config.dateLabel_x;
   var dateLabel_y = config.dateLabel_y;
-  //dateLabel位置
+  //dateLabel location
   if (dateLabel_x == null || dateLabel_y == null) {
-    dateLabel_x = innerWidth; //默认
-    dateLabel_y = innerHeight; //默认
-  } //是否隐藏
+    // default values
+    dateLabel_x = innerWidth; 
+    dateLabel_y = innerHeight;
+  } // whether to hide the label
   if (dateLabel_switch == false) {
     dateLabel_switch = "hidden";
   } else {
@@ -314,7 +315,7 @@ function draw(data) {
   }
 
   if (showMessage) {
-    // 左1文字
+    // Left first text
     var topInfo = g
       .insert("text")
       .attr("class", "growth")
@@ -322,14 +323,14 @@ function draw(data) {
       .attr("y", text_y)
       .text(itemLabel);
 
-    // 右1文字
+    // Right first text
     g.insert("text")
       .attr("class", "growth")
       .attr("x", text_x)
       .attr("y", text_y)
       .text(typeLabel);
 
-    // 榜首日期计数
+    // First lank's attribute
     if (use_counter == true) {
       var days = g
         .insert("text")
@@ -337,7 +338,6 @@ function draw(data) {
         .attr("x", text_x + offset)
         .attr("y", text_y);
     } else {
-      // 显示榜首type
       if (use_type_info == true) {
         var top_type = g
           .insert("text")
@@ -361,8 +361,8 @@ function draw(data) {
     // yScale
     //     .domain(currentData.map(d => d.name).reverse())
     //     .range([innerHeight, 0]);
-    // x轴范围
-    // 如果所有数字很大导致拉不开差距
+    // x축
+    // If every number is too big to spread out
 
     if (big_value) {
       xScale
@@ -424,7 +424,6 @@ function draw(data) {
     });
 
     if (showMessage) {
-      // 榜首文字
       topLabel.data(currentData).text(function (d) {
         if (lastname == d.name) {
           counter.value = counter.value + step;
@@ -436,7 +435,7 @@ function draw(data) {
         return d.name;
       });
       if (use_counter == true) {
-        // 榜首持续时间更新
+        // Top Last Updated
         days
           .data(currentData)
           .transition()
@@ -455,7 +454,7 @@ function draw(data) {
             };
           });
       } else if (use_type_info == true) {
-        // 榜首type更新
+        // Top Type Update
         top_type.data(currentData).text(function (d) {
           return d["type"];
         });
@@ -558,7 +557,7 @@ function draw(data) {
         .attr("r", 40 / 2)
         .attr("fill-opacity", 1);
     }
-    // bar上文字
+    // bar text
     var barInfo = barEnter
       .append("text")
       .attr("x", function (d) {
@@ -620,7 +619,7 @@ function draw(data) {
             d[divide_by] +
             "-" +
             d.name +
-            "  数值:" +
+            "  value:" +
             d3.format(format)(Math.round(i(t) * round) / round);
         };
       });
@@ -645,7 +644,7 @@ function draw(data) {
         .duration(2990 * interval_time)
         .tween("text", function (d) {
           var self = this;
-          // 初始值为d.value的0.9倍
+          // The initial value is 0.9 times d.value
           self.textContent = d.value * 0.9;
           var i = d3.interpolate(self.textContent, Number(d.value)),
             prec = (Number(d.value) + "").split("."),
@@ -738,7 +737,7 @@ function draw(data) {
     if (long) {
       barInfo.tween("text", function (d) {
         var self = this;
-        var str = d[divide_by] + "-" + d.name + "  数值:";
+        var str = d[divide_by] + "-" + d.name + "  value:";
 
         var i = d3.interpolate(
           self.textContent.slice(str.length, 99),
@@ -751,7 +750,7 @@ function draw(data) {
             d[divide_by] +
             "-" +
             d.name +
-            "  数值:" +
+            "  value:" +
             d3.format(format)(Math.round(i(t) * round) / round);
         };
       });
@@ -877,7 +876,7 @@ function draw(data) {
   var p = config.wait;
   var update_rate = config.update_rate;
   var inter = setInterval(function next() {
-    // 空过p回合
+    // empty p-round
     while (p) {
       p -= 1;
       return;
