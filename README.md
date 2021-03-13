@@ -10,11 +10,13 @@ D3.js를 base로 작성된 프로젝트로 프로그래밍에 대해 별다른 �
 
 # 한줄 사용법
 
-src폴더의 bargraph.html을 열고 example.csv파일을 업로드 하면 됩니다.
+src폴더의 bargraph.html을 열고 화면 가운데 버튼을 클릭하고 src/example.csv 파일을 선택하면 됩니다.
 
 # 데이터 형식
 
 현재 CSV 형식의 데이터만 지원하고 있습니다.
+
+기본적으로 인코딩 타입은 EUC-KR(CP949)를 지원하고 있으나, Config에서 설정을 변경할 수 있습니다.
 
 CSV 구체적인 형식：
 

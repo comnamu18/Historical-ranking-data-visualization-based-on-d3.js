@@ -3,7 +3,7 @@
   // Encoding is not recommended to be modified.
   // Instead, it is recommended to copy the contents of the CSV file produced by yourself to example.csv.
   // The encoding format of example.csv is supported by all languages.
-  encoding: "UTF-8",
+  encoding: "euc-kr",
 
   // Maximum number of entries per time node
   max_number: 20,
